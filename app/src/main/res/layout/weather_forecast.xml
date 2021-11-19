@@ -7,73 +7,132 @@
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/forecast_card"
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:background="#80FFFFFF"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="13dp">
+        card_view:cardBackgroundColor="@android:color/transparent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/card_rel"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/forecast_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txtvdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="16 November 2021"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/txtvtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:text="23:47"
+                    />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/forecast_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="21"
-                android:textStyle="bold"/>
-
-            <RelativeLayout
+                android:textSize="50sp"
+                android:text="21°C"
+                />
+            <LinearLayout
+                android:id="@+id/linlayout_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:orientation="vertical"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="15dp">
 
                 <ImageView
                     android:id="@+id/forecast_weather_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_rain"/>
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/art_rain"/>
 
                 <TextView
-                    android:id="@+id/forecast_txtv_weather"
+                    android:id="@+id/forecast_txtv_weatherdesc"
                     android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/forecast_weather_icon"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginLeft="16dp"
                     android:text="Rainy"
                     />
-                <TextView
-                    android:id="@+id/forecast_txtv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_below="@+id/forecast_weather_icon"
-                    android:textSize="16sp"
-                    android:text="21 November 2021"
-                    android:textStyle="italic"/>
-                <Button
-                    android:id="@+id/btn_details"
-                    android:layout_below="@id/forecast_txtv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="det"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/windlin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/forecast_weather"
+            android:gravity="center"
+            android:layout_marginTop="-15dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/forecast_txtv_temp_cond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Cool"
+                />
+            <TextView
+                android:id="@+id/forecast_txtv_max_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Max 21° Min 15°"
+                />
+            <TextView
+                android:id="@+id/forecast_txtv_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="North east"
+                />
+        </LinearLayout>
 
+            <TextView
+                android:id="@+id/btn_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more_details"
+                android:layout_below="@+id/forecast_weather"
+                android:layout_marginLeft="160dp"
+                android:layout_toRightOf="@+id/windlin"
+                android:textColor="@color/yellowtxt"
+                android:layout_marginTop="36dp"
+
+                />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

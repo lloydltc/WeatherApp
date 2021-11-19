@@ -4,61 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cloudblueskyback"
+    android:background="@drawable/backgrnd"
     tools:context=".View.Activity.MainActivity">
 
     <LinearLayout
         android:id="@+id/today_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
-            android:id="@+id/today_temp"
+            android:id="@+id/appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
             android:textColor="@color/white"
-            android:textSize="80sp"
-            android:text="21"
+            android:textSize="24sp"
+            android:typeface="sans"
+            android:text="@string/app_name"
             android:textStyle="bold"/>
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/twn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="@string/city"
+            android:textStyle="bold|italic"/>
 
-                <ImageView
-                    android:id="@+id/weather_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_rain"/>
-
-                <TextView
-                    android:id="@+id/txtv_weather"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/weather_icon"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:text="Rainy"
-                   />
-                <TextView
-                    android:id="@+id/txtv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_below="@+id/weather_icon"
-                    android:textSize="20sp"
-                    android:text="21 November 2021"
-                    android:textStyle="italic"/>
-        </RelativeLayout>
 
     </LinearLayout>
 

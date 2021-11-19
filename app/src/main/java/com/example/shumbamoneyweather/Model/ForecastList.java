@@ -13,7 +13,7 @@ public class ForecastList implements Serializable
 
     @SerializedName("dt")
     @Expose
-    private Integer dt;
+    private long dt;
     @SerializedName("main")
     @Expose
     private Main main;
@@ -77,7 +77,7 @@ public class ForecastList implements Serializable
         this.rain = rain;
     }
 
-    public Integer getDt() {
+    public long getDt() {
         return dt;
     }
 

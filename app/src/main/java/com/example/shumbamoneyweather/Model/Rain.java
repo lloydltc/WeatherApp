@@ -12,7 +12,7 @@ public class Rain implements Serializable
 
     @SerializedName("3h")
     @Expose
-    private Double _3h;
+    private Double rainfall;
     private final static long serialVersionUID = 8085043595117152890L;
 
     /**
@@ -24,19 +24,19 @@ public class Rain implements Serializable
 
     /**
      * 
-     * @param _3h
+     * @param rainfall
      */
-    public Rain(Double _3h) {
+    public Rain(Double rainfall) {
         super();
-        this._3h = _3h;
+        this.rainfall = rainfall;
     }
 
-    public Double get3h() {
-        return _3h;
+    public Double getRainfall() {
+        return rainfall;
     }
 
-    public void set3h(Double _3h) {
-        this._3h = _3h;
+    public void setRainfall(Double rainfall) {
+        this.rainfall = rainfall;
     }
 
 }

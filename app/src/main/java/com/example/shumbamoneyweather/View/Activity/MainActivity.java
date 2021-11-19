@@ -1,5 +1,6 @@
 package com.example.shumbamoneyweather.View.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shumbamoneyweather.Interfaces.DetailsInterface;
 import com.example.shumbamoneyweather.Model.ForecastList;
@@ -43,25 +45,29 @@ public class MainActivity extends AppCompatActivity implements DetailsInterface 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         weatherRecyclerview = findViewById(R.id.weather_forecast_rec);
-        txt = findViewById(R.id.today_temp);
+        txt = findViewById(R.id.twn);
+
+if (isOnline()){
+    weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
+    weatherViewModel.init();
+    weatherViewModel.getWeatherRepository().observe(this,weather -> {
+        List<ForecastList> forecastLists = weather.getList();
+        forecastListArrayList.addAll(forecastLists);
+        saveSharedPreferencesWeather(getApplicationContext(),forecastListArrayList);
+        weatherAdapter.notifyDataSetChanged();
+
+    });
+    setupRecyclerView();
+
+}else{
+    forecastListArrayList.addAll(loadSharedPreferencesWeather(getApplicationContext()));
+
+    setupRecyclerView();
 
 
-        weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
-        weatherViewModel.init();
-        weatherViewModel.getWeatherRepository().observe(this,weather -> {
-            List<ForecastList> forecastLists = weather.getList();
-            forecastListArrayList.addAll(forecastLists);
-            weatherAdapter.notifyDataSetChanged();
-        });
-        setupRecyclerView();
 
-        txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MvpArchitecture.class);
-                startActivity(intent);
-            }
-        });
+}
+
 
     }
 
@@ -80,16 +86,17 @@ public class MainActivity extends AppCompatActivity implements DetailsInterface 
         }
     }
 
-    public static void saveSharedPreferencesLogList(Context context, ArrayList<ForecastList> forecastListArrayList) {
+    public static void saveSharedPreferencesWeather(Context context, ArrayList<ForecastList> forecastListArrayList) {
         SharedPreferences mPrefs = context.getSharedPreferences("Weathercahe", context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(forecastListArrayList);
         prefsEditor.putString("myJson", json);
         prefsEditor.commit();
+
     }
 
-    public static ArrayList<ForecastList> loadSharedPreferencesLogList(Context context) {
+    public static ArrayList<ForecastList> loadSharedPreferencesWeather(Context context) {
         ArrayList<ForecastList> savedWeather = new ArrayList<ForecastList>();
         SharedPreferences mPrefs = context.getSharedPreferences("Weathercahe", context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -104,12 +111,43 @@ public class MainActivity extends AppCompatActivity implements DetailsInterface 
 
         return savedWeather;
     }
+    public boolean isOnline() {
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     @Override
     public void viewDetails(int pos) {
+        Double rain = null;
+
+        if(forecastListArrayList.get(pos).getRain() != null){
+           rain = forecastListArrayList.get(pos).getRain().getRainfall();
+        }else {
+            rain =0.0;
+        }
         Intent intent = new Intent(this,DetailsActivity.class);
-        intent.putExtra("date", forecastListArrayList.get(pos).getDtTxt());
+        intent.putExtra("date", forecastListArrayList.get(pos).getDt());
+        intent.putExtra("humidity",forecastListArrayList.get(pos).getMain().getHumidity());
+        intent.putExtra("pop",forecastListArrayList.get(pos).getPop());
+        intent.putExtra("cloud",forecastListArrayList.get(pos).getClouds().getAll());
+        intent.putExtra("windSpeed",forecastListArrayList.get(pos).getWind().getSpeed());
+        intent.putExtra("windDirection",forecastListArrayList.get(pos).getWind().getDeg());
+        intent.putExtra("pressure",forecastListArrayList.get(pos).getMain().getPressure());
+        intent.putExtra("weatherDesc",forecastListArrayList.get(pos).getWeather().get(0).getDescription());
+        intent.putExtra("minTemp", forecastListArrayList.get(pos).getMain().getTempMin());
+        intent.putExtra("maxTemp",forecastListArrayList.get(pos).getMain().getTempMax());
+        intent.putExtra("temp",forecastListArrayList.get(pos).getMain().getTemp());
+        intent.putExtra("weather",forecastListArrayList.get(pos).getWeather().get(0).getMain());
+        intent.putExtra("rain",rain);
+        intent.putExtra("icon",forecastListArrayList.get(pos).getWeather().get(0).getIcon());
+
         startActivity(intent);
 
     }
