@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="28sp"
-                    android:text="23:47"
+                    android:text="23:49"
                     />
             </LinearLayout>
 
