@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:text="16 November 2021"
+                    android:text="5 November 2021"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txtvtime"
